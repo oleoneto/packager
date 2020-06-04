@@ -1,0 +1,58 @@
+[
+  {
+    "model": "sites.site",
+    "pk": 1,
+    "fields": {
+      "name": "Packager Local",
+      "domain": "localhost:8000"
+    }
+  },
+  {
+    "model": "auth.user",
+    "fields": {
+      "id": 1,
+      "first_name": "Alice",
+      "last_name": "B",
+      "email": "alice.b@example.com",
+      "is_active": "1",
+      "is_staff": "1",
+      "is_superuser": "1",
+      "username": "alice-b",
+      "password": "pbkdf2_sha256$180000$K0lgtbFIdBqh$acUL+vkU274y8Nog/a4WVMSFb/Z+qMdQGt0m3sj+EyQ=",
+      "date_joined": "2009-12-10T14:35:13Z",
+      "last_login": "2019-11-10T14:35:13Z"
+    }
+  },
+  {
+    "model": "auth.user",
+    "fields": {
+      "id": 2,
+      "first_name": "Jane",
+      "last_name": "Doe",
+      "email": "jane.doe@example.com",
+      "is_active": "1",
+      "is_staff": "1",
+      "is_superuser": "1",
+      "username": "jane-doe",
+      "password": "pbkdf2_sha256$180000$K0lgtbFIdBqh$acUL+vkU274y8Nog/a4WVMSFb/Z+qMdQGt0m3sj+EyQ=",
+      "date_joined": "2010-01-10T14:35:13Z",
+      "last_login": "2020-05-10T14:35:13Z"
+    }
+  },
+  {
+    "model": "auth.user",
+    "fields": {
+      "id": 3,
+      "first_name": "Bob",
+      "last_name": "Bin",
+      "email": "bob.bin@example.com",
+      "is_active": "1",
+      "is_staff": "0",
+      "is_superuser": "0",
+      "username": "bob-bin",
+      "password": "pbkdf2_sha256$180000$K0lgtbFIdBqh$acUL+vkU274y8Nog/a4WVMSFb/Z+qMdQGt0m3sj+EyQ=",
+      "date_joined": "2010-11-10T14:35:13Z",
+      "last_login": "2011-11-10T14:35:13Z"
+    }
+  }
+]

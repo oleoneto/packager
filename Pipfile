@@ -1,0 +1,39 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+django = ">=3.0.1"
+django-allauth = "*"
+djangorestframework = ">=3.9.1"
+djangorestframework-httpsignature = "*"
+djangorestframework-jsonapi = "*"
+djangorestframework-simplejwt = "*"
+sentry-sdk = "*"
+boto3 = "*"
+cloudinary = "*"
+django-compress = "*"
+django-compressor = "*"
+django-redis = "*"
+django-storages = "*"
+Pillow = "*"
+django-debug-toolbar = "*"
+django-extensions = "*"
+django_polymorphic = "*"
+psycopg2-binary = "*"
+django-environ = "*"
+python-dotenv = "*"
+stripe = "*"
+channels = "*"
+gunicorn = "*"
+werkzeug = "*"
+django-vestlus = {editable = true,path = "/Users/lneto/Open-source/Python/vestlus"}
+django-auditlog = "*"
+django-cors-headers = "*"
+celery = "*"
+
+[requires]
+python_version = "3.7"

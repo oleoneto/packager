@@ -1,0 +1,97 @@
+version: '3'
+
+services:
+  web:
+    container_name: "packager_web"
+    labels:
+        com.packager.web.description: "packager: Web Application"
+    build:
+        context: .
+    volumes:
+        - .:/app
+    env_file:
+        - .env
+    environment:
+        DJANGO_ENV: docker
+    entrypoint: /docker-entrypoint.sh
+    command: gunicorn packager.wsgi:application --bind 0.0.0.0:8000 --workers 3
+    ports:
+        - 8007:8000 # host:docker
+    depends_on:
+        - db
+        - redis
+
+
+  db:
+    container_name: "packager_db"
+    image: postgres:12-alpine
+    labels:
+        com.packager.db.description: "packager: Database service"
+    volumes:
+        - ./database:/var/lib/postgresql/data/
+    ports:
+        - 5437:5432 # host:docker
+    healthcheck:
+        test: ["CMD-SHELL", "pg_ready -U postgres"]
+        interval: 10s
+        timeout: 83s
+        retries: 40
+    restart: always
+
+
+  redis:
+    container_name: "packager_redis"
+    image: redis:latest
+    labels:
+        com.packager.redis.description: "packager: Redis cache service"
+    ports:
+        - 6377:6379 # host:docker
+    restart: always
+
+
+  celery_worker:
+    container_name: "packager_celery_worker"
+    build:
+      context: .
+    command: celery worker --app lua --concurrency=20 -linfo -E
+    depends_on:
+      - redis
+    env_file:
+      - .env
+    restart: on-failure
+    stop_grace_period: 5s
+
+
+  vault:
+    container_name: "packager_vault"
+    image: vault:latest
+    volumes:
+#      - ./vault/config:/vault/config
+      - ./vault/policies:/vault/policies
+      - ./vault/data:/vault/data
+      - ./vault/logs:/vault/logs
+#    environment:
+#      - VAULT_ADDR=http://127.0.0.1:8200
+#    command: server -config=/vault/config/vault-config.json
+    ports:
+      - 7367:8200 # host:docker
+    depends_on:
+      - consul
+    restart: always
+
+
+  consul:
+    container_name: "packager_consul"
+    image: consul:latest
+    volumes:
+      - ./consul/data:/consul/data
+    command: agent -server -bootstrap-expect 3 -ui -client 0.0.0.0
+    ports:
+      - 8400:8400 # host:docker
+    restart: always
+
+
+volumes:
+    database:
+    vault:
+    consul:
